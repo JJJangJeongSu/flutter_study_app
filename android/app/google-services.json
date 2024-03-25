@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "46294963663",
+    "project_id": "pls-bang",
+    "storage_bucket": "pls-bang.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46294963663:android:f2c350b6c039b612eaaeba",
+        "android_client_info": {
+          "package_name": "com.example.flutter_study_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARNQFgRa0IQFqXmEV242WP_uA2dQMg5T8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
