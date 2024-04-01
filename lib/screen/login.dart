@@ -12,9 +12,19 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formkey = GlobalKey<FormState>();
 
+  var passwordControl = TextEditingController();
+
   String? _emailInput;
 
   String? _passwordInput;
+
+  bool? loginMode;
+
+  @override
+  void initState() {
+    super.initState();
+    loginMode = true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
 
       try {
-        final UserCredential = await _fireBase.signInWithEmailAndPassword(
+        final userCredential = await _fireBase.signInWithEmailAndPassword(
             email: _emailInput!, password: _passwordInput!);
       } on FirebaseAuthException catch (error) {
         ScaffoldMessenger.of(context).clearSnackBars();
@@ -94,15 +104,42 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     obscureText: true,
                     enableSuggestions: false,
+                    controller: passwordControl,
                   ),
+                  if (loginMode!)
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        label: Text("Verify your password"),
+                      ),
+                      validator: (value) {
+                        String curPassword = passwordControl.text;
+                        if (value != curPassword) {
+                          return "Password is incorrect";
+                        }
+                      },
+                      obscureText: true,
+                      enableSuggestions: false,
+                    ),
                   const SizedBox(
                     height: 50,
                   ),
-                  FilledButton(onPressed: _login, child: const Text("Login")),
+                  FilledButton(
+                    onPressed: loginMode! ? _login : _signUp,
+                    child: Text(loginMode! ? "Login" : "Create Account"),
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
-                  TextButton(onPressed: _signUp, child: const Text("Sign up"))
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        loginMode = !loginMode!;
+                      });
+                    },
+                    child: Text(loginMode!
+                        ? "Have no account?"
+                        : "Already have an account?"),
+                  )
                 ],
               ),
             ),
