@@ -21,8 +21,6 @@ class _LoginScreenState extends State<LoginScreen> {
     void _login() async {
       if (_formkey.currentState!.validate()) {
         _formkey.currentState!.save();
-        print(_emailInput);
-        print(_passwordInput);
       }
 
       try {
